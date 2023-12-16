@@ -1,19 +1,14 @@
 import asyncio
-import random
+from random import randint
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import FSInputFile
-from aiogram.filters import CommandStart
-from aiogram.types import Message
-from aiogram.utils.markdown import hbold
-
 
 token = "6844191624:AAESVrUo7DVg98trqQX0ZJdrnTJihGi4GGU"
 dispather = Dispatcher()
 
 @dispather.message()
 async def handle_message(message: types.Message):
-    arr = ["mem.png"]
-    photo = FSInputFile(random.choice(arr))
+    photo = FSInputFile(f"Magic 8 ball/{randint(1, 20)}.jpg")
     await message.answer_photo(photo)
 
 async def main() -> None:
