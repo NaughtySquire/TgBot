@@ -1,12 +1,25 @@
-from aiogram import Bot, types
-from aiogram.dispatcher import Dispatcher
-from aiogram.utils import executor
+import asyncio
+import random
+from aiogram import Bot, Dispatcher, types
+from aiogram.types import FSInputFile
+from aiogram.filters import CommandStart
+from aiogram.types import Message
+from aiogram.utils.markdown import hbold
 
-bot = Bot(token="6844191624:AAESVrUo7DVg98trqQX0ZJdrnTJihGi4GGU")
-dispather = Dispatcher(bot)
 
-@dispather.message_handler()
+token = "6844191624:AAESVrUo7DVg98trqQX0ZJdrnTJihGi4GGU"
+dispather = Dispatcher()
+
+@dispather.message()
 async def handle_message(message: types.Message):
-    await message.answer(message.text)
+    arr = ["mem.png"]
+    photo = FSInputFile(random.choice(arr))
+    await message.answer_photo(photo)
 
-executor.start_polling(dispather, skip_updates=True)
+async def main() -> None:
+    bot = Bot(token)
+    await dispather.start_polling(bot)
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
